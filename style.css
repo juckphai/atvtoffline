@@ -1,0 +1,1479 @@
+/* --- 1. Global Styles & Imports --- */
+@import url("https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f5f5f5;
+  font-family: "Sarabun", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- 2. Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popupFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- 3. Layout & Main Containers --- */
+.container {
+  background-color: #FAFAD2;
+  border: 1.5px solid #ED01ED;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 5px auto;
+  max-width: 900px;
+  padding: 5px;
+  width: 98%;
+}
+
+.form-section,
+.data-section {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  padding: 15px;
+}
+
+.form-section.no-border {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.section-content {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  display: none;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+}
+
+.section-content.active {
+  display: block;
+  width: 100%;
+}
+
+/* --- 4. Headers (Main, Summary, Subsections) --- */
+.main-section-header {
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.main-section-header:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.main-section-header.active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(0);
+}
+
+/* Header Variants */
+.header-add-data {
+  /* เดิม: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%); */
+  background: linear-gradient(135deg, #747dff 0%, #94a3ff 100%); /* ม่วงอ่อน/น้ำเงิน */
+  border-left: 6px solid #546de5;
+  /* Override from responsive/fixes */
+  margin: 5px 0 8px !important;
+  padding: 12px 15px !important;
+}
+
+.header-actions {
+  /* เดิม: linear-gradient(135deg, #0be881 0%, #2ed573 100%); */
+  background: linear-gradient(135deg, #48dbfb 0%, #1dd1a1 100%); /* น้ำเงินอมเขียว/เขียวมิ้นต์ */
+  border-left: 6px solid #00a8ff;
+}
+
+.header-summary {
+  /* เดิม: linear-gradient(135deg, #ff9f43 0%, #ffaf60 100%); */
+  background: linear-gradient(135deg, #70a1ff 0%, #81c7ff 100%); /* ฟ้าอ่อน/ขาว */
+  border-left: 6px solid #4a90e2;
+}
+
+/* Sub-headers */
+.section-header {
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 12px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.section-header:hover { background-color: #e0e0e0; }
+.section-header.active { background-color: #d0e8ff; }
+
+.summary-subsection-header {
+  align-items: center;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.summary-subsection-header::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  content: '';
+  height: 100%;
+  left: -100%;
+  position: absolute;
+  top: 0;
+  transition: left 0.5s ease;
+  width: 100%;
+}
+
+.summary-subsection-header:hover::before { left: 100%; }
+.summary-subsection-header:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.summary-subsection-header.summary-date { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
+.summary-subsection-header.summary-range { background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); color: #2d3436; }
+.summary-subsection-header.summary-controls { background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); }
+
+/* Icons & Arrows */
+.arrow, .menu-icon {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+.main-section-header.active .arrow,
+.summary-subsection-header.active .arrow,
+.section-header.active .arrow,
+.main-section-header.active .menu-icon,
+.summary-subsection-header.active .menu-icon {
+  transform: rotate(180deg);
+}
+
+/* --- 5. Forms & Inputs (General) --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  color: #333;
+  display: block;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select,
+textarea {
+  border: 1px solid #c2c2c2; /* ปรับให้ดูนุ่มนวลขึ้น */
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: 12px;
+  resize: vertical;
+  width: calc(100% - 24px);
+  background-color: #f7f7f7; /* พื้นหลังช่องกรอก */
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #4a90e2; /* เน้นสีน้ำเงินเมื่อโฟกัส */
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+    background-color: #fff;
+    outline: none;
+}
+
+#customPersonInput,
+#customActivityTypeInput {
+  display: none;
+}
+
+/* Time Inputs & Date Display */
+.time-inputs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.time-inputs-section .date-wrapper,
+.time-input-group .date-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  position: relative;
+  width: 100%;
+}
+
+.time-inputs-section .display-date,
+.time-input-group .display-date {
+  color: #000;
+  font-size: 14px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: left;
+  white-space: nowrap;
+  width: 100px;
+}
+
+.time-inputs-section input[type="time"] {
+  box-sizing: border-box;
+  margin-left: auto;
+  max-width: 150px;
+  padding: 8px 8px 8px 100px;
+  width: 100%;
+}
+
+#start-time {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+/* --- 6. Buttons (General) --- */
+button {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 5px;
+  padding: 12px 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover { background-color: #45a049; }
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.button-container button {
+  flex: 1;
+  min-width: 120px;
+}
+
+.button-container .clean-data-btn {
+  display: inline-block !important;
+  flex: none !important;
+  padding: 10px 15px !important;
+  white-space: nowrap !important;
+  width: auto !important;
+}
+
+/* --- 7. Specific Components (Management, Time, Duration) --- */
+
+/* Management Controls */
+.management-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.management-container {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.select-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px auto;
+  min-height: 44px;
+  width: 80%;
+}
+
+.select-wrapper select {
+  flex-grow: 1;
+  margin: 0;
+  width: auto;
+}
+
+.manage-btn-inline {
+  /* เดิม: #009BD2 */
+  background-color: #f39c12; /* ส้มเข้ม */
+  border: none;
+  border-radius: 8px; 
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 22px; /* ปรับให้ใหญ่ขึ้นเล็กน้อย */
+  height: 38px;
+  justify-content: center;
+  align-items: center; /* <<< แก้ไข: เพิ่มเพื่อจัดกึ่งกลางแนวตั้ง */
+  line-height: 1; /* <<< แก้ไข: ปรับลด line-height */
+  padding: 0;
+  transition: all 0.2s ease;
+  width: 44px;
+}
+
+.manage-btn-inline:hover {
+  /* เดิม: #E97132 */
+  background-color: #d35400; /* ส้มเข้มกว่า */
+  transform: rotate(45deg);
+}
+
+.management-actions {
+  align-items: center;
+  animation: fadeIn 0.3s;
+  display: none;
+  gap: 10px;
+  height: 36px;
+  justify-content: center;
+  margin: 5px auto 15px;
+  width: 80%;
+}
+
+.management-actions.active {
+  display: flex;
+}
+
+.management-actions button {
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  font-size: 14px;
+  height: 36px;
+  justify-content: center;
+  margin: 0;
+  padding: 6px 12px;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+  width: auto;
+}
+
+/* Management Button Colors */
+.add-btn { background-color: #28a745; }
+.add-btn:hover { background-color: #218838; }
+.edit-btn { background-color: #ffc107; color: #212529 !important; }
+.edit-btn:hover { background-color: #e0a800; }
+.delete-btn { background-color: #dc3545; }
+.delete-btn:hover { background-color: #c82333; }
+.reset-btn { background-color: #17a2b8; }
+.reset-btn:hover { background-color: #138496; }
+
+/* Compact Layout Overrides for Management */
+.management-row.compact-layout {
+  align-items: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.management-container.full-width {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.management-container.full-width .select-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.management-container.full-width .select-wrapper select {
+  flex: 1;
+  min-width: 0;
+}
+
+.management-container.full-width .manage-btn-inline {
+  height: 38px;
+  width: 38px;
+}
+
+.management-container.full-width .management-actions {
+  display: none;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 5px;
+  width: 100%;
+}
+.management-container.full-width .management-actions.active { display: flex; }
+
+.management-container.full-width .management-actions button {
+  flex: 1;
+  font-size: 12px;
+  height: 32px;
+  max-width: 100px;
+  min-width: 60px;
+  padding: 4px 6px;
+}
+
+/* Duration Inputs (Fixed & Centered) */
+.time-input-group.duration-block {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.duration-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
+}
+
+.duration-wrapper .display-date {
+  position: static !important;
+  width: auto !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.duration-inputs-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  gap: 15px !important; /* Equal Width Fix */
+  overflow: visible !important;
+}
+
+.duration-input-group {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: 80px !important;
+  margin: 0 !important;
+}
+
+.duration-input-group input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  padding: 8px 5px !important;
+  text-align: center !important;
+  width: 130px !important; /* Equal Width Fix */
+  max-width: 130px !important;
+  background-color: #fff !important; /* พื้นหลังช่องกรอก */
+}
+
+.duration-label {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 5px !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+/* Time Inputs Row (Fixed) */
+.time-row {
+  align-items: flex-end;
+  display: flex;
+  gap: 15px !important; /* Shorten Start/End Time Fix */
+  justify-content: center !important; /* Center Fix */
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.time-row .time-input-group {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto !important; /* Shorten Fix */
+  flex-direction: column;
+  min-width: auto !important;
+  width: auto !important;
+}
+
+.time-row input[type="time"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  margin-left: 0;
+  max-width: 130px !important; /* Shorten Fix */
+  padding: 8px 5px !important;
+  text-align: center !important;
+  width: 130px !important;
+  background-color: #f7f7f7; /* พื้นหลังช่องกรอก */
+}
+
+.time-label-bottom {
+  color: #555;
+  font-size: 0.85rem !important;
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  margin-top: 4px;
+}
+
+/* Summary Subsection Components */
+.summary-subsection { margin-bottom: 8px; }
+.summary-subsection .entry-form {
+  background-color: #f8f9fa;
+  border-left: 3px solid #dee2e6;
+  border-radius: 30px;
+  padding: 5px;
+}
+.summary-subsection .entry-group { margin-bottom: 5px; }
+
+.summary-date-display {
+  align-items: center;
+  display: flex;
+  margin-bottom: 5px;
+  width: 100%;
+}
+.summary-date-display .date-label {
+  color: #000;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: left;
+  white-space: nowrap;
+  width: 100px;
+}
+.summary-date-display input[type="date"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  font-size: 14px;
+  max-width: 200px;
+  padding: 8px;
+  background-color: #f7f7f7; /* พื้นหลังช่องกรอก */
+}
+
+/* --- 8. Tables --- */
+.table-container {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+table {
+  background-color: white;
+  border-collapse: collapse;
+  min-width: 600px;
+  width: 100%;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  background: linear-gradient(135deg, #4a6572 0%, #344955 100%);
+  border: 1px solid #2c3e50;
+  color: white;
+  font-weight: 600;
+  position: sticky;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  top: 0;
+  z-index: 10;
+}
+
+tr:nth-child(even) { background-color: #f8f9fa; }
+tr:nth-child(odd) { background-color: #fff; }
+tr:hover {
+  background-color: #e3f2fd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+td {
+  border: 1px solid #e9ecef;
+  color: #2c3e50;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+tr:hover td { color: #1a237e; font-weight: 600; }
+
+/* Specific Table Styles */
+#activityTable {
+  font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+  min-width: 100%;
+  table-layout: auto;
+  width: max-content;
+}
+#activityTable th { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; }
+#activityTable tr:hover { background-color: #e8f4fd; }
+#activityTable tr:hover td { color: #1565c0; }
+#activityTable td, #activityTable th {
+  line-height: 1.2;
+  max-width: 200px;
+  overflow: hidden !important;
+  padding: 6px 8px;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  word-break: break-word;
+}
+/* Override to allow normal breaking if needed per one of the definitions */
+#activityTable td, #activityTable th {
+  max-width: none !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: normal !important;
+}
+
+#user-list-table th { background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); color: white; }
+#user-list-table tr:hover { background-color: #e0f7fa; }
+#user-list-table tr:hover td { color: #006064; }
+
+#activity-types-table th { background: linear-gradient(135deg, #f46b45 0%, #eea849 100%); color: white; }
+#activity-types-table tr:hover { background-color: #fff3e0; }
+#activity-types-table tr:hover td { color: #e65100; }
+
+#all-activities-table th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+#all-activities-table tr:hover { background-color: #f3e5f5; }
+#all-activities-table tr:hover td { color: #7b1fa2; }
+
+/* Summary Result Table (Desktop) */
+.summaryResult {
+  box-sizing: border-box;
+  margin-bottom: 1px;
+  padding: 1px;
+  width: 100%;
+}
+.summaryResult table {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: clamp(0.6rem, 2.2vw, 0.7rem);
+  min-width: 450px;
+  overflow: hidden;
+  text-align: left;
+}
+.summaryResult th {
+  /* เดิม: background: linear-gradient(135deg, #ff9f43 0%, #ff8b33 100%); */
+  background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); /* เปลี่ยนสีตารางเป็นสีน้ำเงินเข้ม */
+  border: 1px solid #005f78;
+  color: white;
+  font-weight: 600;
+  text-align: center !important; /* Require: Center */
+}
+.summaryResult tr:nth-child(even) { background-color: #fff9f2; }
+.summaryResult tr:hover { background-color: #ffeaa7; }
+.summaryResult tr:hover td { color: #e17055; }
+.summaryResult td {
+  font-size: clamp(0.6rem, 2.2vw, 0.7rem);
+  overflow: hidden;
+  padding: 3px 2px;
+  text-align: center !important; /* Require: Center */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.summaryResult table.recent-activities { font-size: clamp(0.5rem, 1.8vw, 0.65rem) !important; }
+.summaryResult table.recent-activities th,
+.summaryResult table.recent-activities td {
+  font-size: clamp(0.5rem, 1.8vw, 0.65rem) !important;
+  line-height: 1.1 !important;
+  padding: 2px 1px !important;
+  max-width: 80px !important;
+}
+
+/* --- 9. Modals, Popups, Toasts --- */
+/* Modal */
+.modal-overlay {
+  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 1);
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  overflow-y: auto;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.modal-content-container {
+  animation: modalFadeIn 0.3s;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-height: 90vh;
+  max-width: 900px;
+  overflow-y: auto;
+  padding: 10px 0.5px 5px 0.5px !important;
+  width: 100%;
+}
+
+.modal-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 5px;
+}
+.modal-control-btn {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+.modal-close-btn { background-color: #6c757d; }
+.modal-close-btn:hover { background-color: #5a6268; }
+
+/* Popup */
+.popup-overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.popup-content {
+  animation: popupFadeIn 0.3s;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  padding: 5px;
+  width: 100%;
+}
+.modal-button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 5px;
+}
+.close-popup-btn { background-color: #6c757d; color: white; }
+.close-popup-btn:hover { background-color: #5a6268; }
+
+/* Format Modal */
+.format-modal-content {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+.format-modal-content .entry-form {
+  background-color: #f8f9fa;
+  border-radius: 30px;
+  margin-bottom: 5px;
+  padding: 15px;
+}
+.format-modal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 5px;
+  flex-direction: column;
+}
+.format-modal-buttons button {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 12px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+.btn-display { background-color: #4CAF50; }
+.btn-display:hover { background-color: #45a049; }
+.btn-xlsx { background-color: #2196F3; }
+.btn-xlsx:hover { background-color: #0b7dda; }
+.btn-pdf { background-color: #f44336; }
+.btn-pdf:hover { background-color: #d32f2f; }
+.btn-json { background-color: #FF9800; }
+.btn-json:hover { background-color: #e68900; }
+.btn-csv { background-color: #009688; }
+.btn-csv:hover { background-color: #00796b; }
+.btn-cancel { background-color: #6c757d; }
+.btn-cancel:hover { background-color: #5a6268; }
+
+/* Toast Notification */
+.toast-notification {
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  line-height: 1.4;
+  max-width: 300px;
+  opacity: 0;
+  padding: 12px 20px;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+.toast-notification.show { opacity: 1; transform: translateY(0); }
+.toast-notification.success { background-color: #FF15C2; }
+.toast-notification.error { background-color: #dc3545; }
+.toast-notification.warning { background-color: #ffc107; color: #000; }
+.toast-notification.info { background-color: #17a2b8; }
+
+/* Install Prompt */
+.install-prompt {
+  background-color: #e7f3ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+  padding: 15px;
+  position: relative;
+}
+.close-prompt {
+  color: #666;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+.install-prompt h4 { color: #06c; margin-top: 0; }
+
+
+/* --- 11. Specific ID Overrides & FIXES --- */
+
+/* COMPACT ADD ACTIVITY FIX */
+#activity-form {
+  gap: 2px !important;
+  margin: 0 !important;
+  padding: 4px !important;
+}
+#activity-form .form-section {
+  margin-bottom: 10px !important;
+  padding: 8px 6px !important;
+}
+#activity-form .section-content {
+  margin-bottom: 6px !important;
+  padding: 6px !important;
+}
+#activity-form .management-row {
+  margin-bottom: 0px !important;
+  gap: 4px !important;
+}
+#activity-form .management-container {
+  margin-bottom: 2px !important;
+}
+.management-container .select-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 2px auto !important; /* ปรับการใช้พื้นที่ */
+  min-height: 30px !important;
+  width: 100%; /* ใช้เต็มพื้นที่ */
+}
+#activity-form .select-wrapper select {
+  height: 32px !important;
+  padding: 2px 5px !important;
+  font-size: 0.9rem !important;
+  background-color: #fff !important; /* พื้นหลังช่องกรอก */
+}
+#activity-form .manage-btn-inline {
+  height: 32px !important;
+  width: 32px !important;
+  font-size: 18px !important; /* <<< แก้ไข: ปรับขนาดตัวอักษรลง */
+  align-items: center !important; /* <<< แก้ไข: เพิ่มเพื่อจัดกึ่งกลางแนวตั้ง */
+  line-height: 1 !important; /* <<< แก้ไข: ปรับลด line-height */
+}
+#activity-form .date-wrapper {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+#activity-form input[type="date"],
+#activity-form input[type="number"],
+#activity-form input[type="time"],
+#activity-form input[type="text"],
+#activity-form input[type="password"] {
+  padding: 4px !important;
+  height: 32px !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 4px !important;
+  background-color: #fff !important; /* พื้นหลังช่องกรอก */
+}
+#activity-form .time-inputs-section {
+  margin-bottom: 0px !important;
+  gap: 2px !important;
+}
+#activity-form .duration-inputs-container {
+  margin-top: 0px !important;
+  margin-bottom: 2px !important;
+}
+#activity-form .time-row {
+  margin-top: 0px !important;
+  margin-bottom: 2px !important;
+  gap: 8px !important;
+}
+#activity-form label {
+  margin-top: 2px !important;
+  margin-bottom: 1px !important;
+  font-size: 0.85rem !important;
+}
+#activity-form textarea {
+  margin-top: 0px !important;
+  margin-bottom: 2px !important;
+  padding: 4px !important;
+  height: 60px !important;
+  font-size: 0.9rem !important;
+  background-color: #fff !important; /* พื้นหลังช่องกรอก */
+}
+#activity-form .center {
+  margin-top: 4px !important;
+}
+#activity-form .button-container {
+  margin-top: 4px !important;
+}
+
+/* Save Button */
+#save-activity-button {
+  /* เดิม: background-color: #F0F; border: 3px solid #196B24; */
+  background-color: #1dd1a1; /* เขียวมิ้นต์ */
+  border: 3px solid #7d5fff; /* ม่วง */
+  border-radius: 28px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 6px 15px !important;
+  margin-top: 0px !important;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  width: fit-content;
+}
+#save-activity-button:focus { outline: 3px solid rgba(125, 95, 255, 0.5); }
+#save-activity-button:hover { background-color: #7d5fff; transform: translateY(-1px); }
+
+/* INLINE PASSWORD FIX */
+#manage-activities-form .entry-group {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  max-width: 90% !important;
+  margin: 4px auto !important;
+}
+#manage-activities-form .entry-group label {
+  margin: 0 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  font-size: clamp(0.8rem, 2.5vw, 1rem) !important;
+}
+#manage-activities-form .entry-group > div {
+  flex: 1 !important;
+  margin-top: 0 !important;
+  width: auto !important;
+}
+#manage-activities-form input[type="password"] {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 8px 35px 8px 10px !important;
+  background-color: #fff !important; /* พื้นหลังช่องกรอก */
+}
+#manage-activities-form .button-container:first-child {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+#manage-activities-form .button-container:first-child button {
+  flex: 1;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  min-width: 0;
+  padding: 12px 10px;
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+}
+#manage-activities-form .button-container:last-child {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+#manage-activities-form .button-container:last-child button {
+  flex: 1;
+  font-size: clamp(0.75rem, 2.2vw, 0.9rem);
+  max-width: 150px;
+  min-width: 0;
+  padding: 10px 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#add-data-section .entry-form { margin-top: 0; }
+#add-data-section .date-time-group { margin-bottom: 5px; margin-top: 0; }
+
+/* --- 12. Responsive Media Queries --- */
+
+/* Tablet & Mobile (Max-width: 768px) */
+@media (max-width: 768px) {
+  /* Layout */
+  .container { padding: 5px; }
+  .form-section, .data-section { padding: 10px; }
+  .main-section-header { font-size: 1.2rem; padding: 15px 20px; }
+  .section-header { padding: 10px 12px; }
+  .summary-subsection-header { font-size: 1rem; padding: 12px 15px; }
+
+  /* Forms & Inputs */
+  input[type="text"], input[type="password"], input[type="date"], input[type="time"], select, textarea {
+    font-size: 16px; padding: 10px;
+    background-color: #fff !important; /* พื้นหลังช่องกรอก */
+  }
+  button { font-size: 16px; padding: 10px 15px; }
+
+  /* Management Controls */
+  .management-row, .management-row.compact-layout {
+    flex-wrap: nowrap;
+    gap: 8px;
+    flex-direction: row;
+    margin-bottom: 6px !important;
+  }
+  .management-container, .management-container.full-width {
+    flex: 1 1 48%;
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 4px !important;
+  }
+  .select-wrapper, .management-container.full-width .select-wrapper {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 6px;
+    justify-content: space-between;
+    width: 100%;
+    margin: 2px auto 3px !important;
+  }
+  .select-wrapper select, .management-container.full-width .select-wrapper select {
+    flex: 1;
+    min-width: 120px;
+    background-color: #fff !important; /* พื้นหลังช่องกรอก */
+  }
+  .manage-btn-inline, .management-container.full-width .manage-btn-inline {
+    flex-shrink: 0;
+    font-size: 18px;
+    height: 38px; /* Standardizing */
+    width: 38px;
+    margin: 0;
+  }
+  .management-actions {
+    gap: 6px;
+    height: auto;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 8px auto 12px;
+    display: none;
+    order: 3;
+  }
+  .management-actions.active { display: flex; flex-wrap: wrap; }
+  .management-actions button, .management-container.full-width .management-actions button {
+    flex: 1 1 calc(50% - 6px);
+    font-size: 12px;
+    height: 36px;
+    min-width: 70px;
+    max-width: 100px;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+  #customPersonInput, #customActivityTypeInput { margin: 5px auto; width: 90%; }
+
+  /* Time Inputs Fixes */
+  .time-inputs-section .display-date, .time-input-group .display-date { font-size: 13px; width: 85px; }
+  .time-inputs-section input[type="time"], .time-input-group input[type="time"] {
+    padding: 8px 8px 8px 85px;
+    max-width: 130px;
+    background-color: #fff !important; /* พื้นหลังช่องกรอก */
+  }
+  .time-row {
+    gap: 8px;
+    flex-direction: row;
+    justify-content: center !important;
+  }
+  .duration-inputs-container { flex-wrap: nowrap !important; justify-content: center !important; }
+  .time-input-group.duration-block { padding: 0 10px !important; }
+
+  /* Summary */
+  .summary-date-display { align-items: center; flex-direction: row; }
+  .summary-date-display .date-label { font-size: 13px; margin-bottom: 0; width: 90px; }
+  .summary-date-display input[type="date"] { flex: 1; max-width: 150px; background-color: #fff !important; }
+  .summaryResult {
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    padding: 10px 0.5px 5px 0.5px !important;
+    width: 100% !important;
+    overflow-x: hidden !important; /* Hide scrollbar if slightly over */
+  }
+
+  /* Modals */
+  .modal-content-container {
+    margin: 10px;
+    max-height: 95vh;
+    width: calc(100% - 20px);
+    max-width: calc(100% - 4px) !important;
+    padding: 10px 0.5px 5px 0.5px !important;
+  }
+  #modalBodyContent { padding: 0 !important; width: 100% !important; }
+  .modal-controls, .modal-button-group { flex-direction: column; }
+  .modal-control-btn, .modal-button-group button { width: 100%; }
+
+  /* Tables */
+  th, td { font-size: 0.85rem; padding: 10px 0.5px 5px 0.5px !important; }
+  table { min-width: 500px; }
+  
+  /* Buttons & Layout Misc */
+  .entry-form .button-container { flex-direction: row !important; flex-wrap: wrap; gap: 10px; }
+  .entry-form .button-container button { flex: 1; min-width: 120px; }
+  .button-container { flex-direction: column; gap: 4px !important; margin-top: 3px !important; }
+  .button-container button { width: 100%; }
+  
+  /* Manage Form Buttons */
+  #manage-activities-form .button-container:first-child { flex-wrap: nowrap; flex-direction: row; }
+  #manage-activities-form .button-container:first-child button { font-size: clamp(0.75rem, 2.2vw, 0.9rem); padding: 10px 8px; }
+  #manage-activities-form .button-container:last-child { flex-wrap: nowrap; }
+  #manage-activities-form .button-container:last-child button { font-size: clamp(0.7rem, 2vw, 0.85rem); max-width: 140px; padding: 8px 4px; }
+  
+  /* Toast */
+  .toast-notification { font-size: 0.85rem; left: 10px; max-width: none; padding: 10px 16px; right: 10px; top: 10px; }
+  
+  /* Footer */
+  footer { border-radius: 25px; font-size: clamp(0.65rem, 2.2vw, 0.8rem); margin: 25px 10px 12px; gap: 6px; line-height: 1.4; max-width: calc(100% - 20px); }
+  footer div { display: block; white-space: normal; }
+}
+
+/* Mobile (Max-width: 480px) */
+@media (max-width: 480px) {
+  /* Layout */
+  .container { padding: 3px; }
+  .form-section, .data-section { padding: 8px; }
+  .main-section-header { font-size: 1.1rem; padding: 12px 15px; }
+  .section-header { padding: 8px 10px; }
+  .summary-subsection-header { font-size: 0.9rem; padding: 10px 12px; }
+
+  /* Forms & Inputs */
+  input[type="text"], input[type="password"], input[type="date"], input[type="time"], select, textarea { 
+    padding: 8px; 
+    background-color: #fff !important; /* พื้นหลังช่องกรอก */
+  }
+  button { padding: 8px 12px; }
+  
+  /* Management Controls */
+  .management-row { gap: 6px; margin-bottom: 4px !important; }
+  .manage-btn-inline, .management-container.full-width .manage-btn-inline { font-size: 16px; height: 34px; width: 34px; }
+  .select-wrapper { gap: 6px; }
+  .select-wrapper select, .management-container.full-width .select-wrapper select { font-size: 14px; min-width: 100px; background-color: #fff !important; }
+  .management-actions button, .management-container.full-width .management-actions button {
+    flex: 1 1 calc(50% - 3px); font-size: 11px; min-width: 65px; padding: 4px 6px;
+  }
+  .add-btn, .edit-btn, .delete-btn, .reset-btn { font-size: 10px; min-width: 50px; padding: 4px 6px; }
+
+  /* Time & Duration Fixes */
+  .time-input-group .display-date { font-size: 12px; width: 80px; }
+  .time-input-group input[type="time"] { font-size: 14px; max-width: 120px; padding: 6px 6px 6px 80px; background-color: #fff !important; }
+  .time-row { gap: 6px; }
+  .time-row input[type="time"] { width: 120px !important; font-size: 0.9rem !important; }
+  .summary-date-display .date-label { font-size: 12px; width: 85px; }
+  .summary-date-display input[type="date"] { font-size: 13px; max-width: 130px; padding: 6px; background-color: #fff !important; }
+  #duration-hours, #duration-minutes { width: 120px !important; background-color: #fff !important; } /* Equal Width Fix Mobile */
+
+  /* Tables */
+  th, td { font-size: 0.65rem; padding: 8px 10px; }
+  
+/* SUMMARY TABLE FIX FOR MOBILE (IMAGE 2 STYLE) */
+.summaryResult table {
+  table-layout: fixed !important; /* Force fixed layout */
+  width: 100% !important;
+  min-width: 0 !important; /* Allow shrinking */
+  font-size: clamp(0.50rem, 1.8vw, 0.7rem) !important;
+}
+
+/* All cells in summary table: Center by default, prevent overflow for general columns */
+.summaryResult th, .summaryResult td {
+  text-align: center !important; /* Requirement: Center all */
+  padding: 4px 2px !important;
+  font-size: clamp(0.50rem, 1.8vw, 0.7rem) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip; /* Default for non-last columns */
+}
+
+/* Adjust column widths: Activity, Date, Time, Duration, Details */
+.summaryResult th:nth-child(1), .summaryResult td:nth-child(1) { width: 11% !important; } 
+.summaryResult th:nth-child(2), .summaryResult td:nth-child(2) { width: 14% !important; } 
+.summaryResult th:nth-child(3), .summaryResult td:nth-child(3) { width: 17% !important; } 
+.summaryResult th:nth-child(4), .summaryResult td:nth-child(4) { width: 19% !important; } 
+
+
+  /* The Last Column (Details) - Truncate with ellipsis */
+  .summaryResult th:last-child, .summaryResult td:last-child {
+    width: auto !important; /* Rest of the space */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important; /* Cut text use .*/
+  }
+  
+  /* Fix column widths for Type Summary Table (2 columns) */
+.summaryResult table.type-summary-table th:nth-child(1), 
+.summaryResult table.type-summary-table td:nth-child(1) { width: 40% !important; }
+.summaryResult table.type-summary-table th:nth-child(2), 
+.summaryResult table.type-summary-table td:nth-child(2) { width: 60% !important; }
+
+  /* Manage Form Specifics */
+  #manage-activities-form .entry-group { gap: 5px !important; max-width: 100% !important; }
+  #manage-activities-form .entry-group label { font-size: 0.8rem !important; }
+  #manage-activities-form .button-container:first-child { gap: 8px; }
+  #manage-activities-form .button-container:first-child button { font-size: clamp(0.7rem, 2vw, 0.85rem); padding: 8px 6px; }
+  #manage-activities-form .button-container:last-child { gap: 8px; }
+  #manage-activities-form .button-container:last-child button { font-size: clamp(0.65rem, 1.8vw, 0.8rem); max-width: 130px; padding: 7px 3px; }
+
+  /* Modals */
+  .summaryResult { border-width: 1px !important; }
+  .modal-content-container { margin: 5px !important; max-width: calc(100% - 10px) !important; width: calc(100% - 10px) !important; }
+  
+  /* Footer */
+  footer { border-radius: 20px; font-size: clamp(0.6rem, 2vw, 0.75rem); margin: 20px 5px 10px; gap: 4px; line-height: 1.5; max-width: calc(100% - 10px); padding: 10px 12px; }
+  footer div { display: block; white-space: normal; }
+  
+  /* Toast */
+  .toast-notification { border-radius: 6px; font-size: 0.8rem; left: 5px; padding: 8px 12px; right: 5px; top: 5px; }
+}
+
+/* --- 13. Accessibility & Print --- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+@media (prefers-contrast: high) {
+  .main-section-header, .summary-subsection-header { border: 2px solid currentColor; }
+  button { border: 1px solid currentColor; }
+}
+
+@media print {
+  body * { visibility: hidden; }
+  #print-container, #print-container * { visibility: visible; }
+  #print-container { left: 0; position: absolute; top: 0; width: 100%; }
+  button, .modal-controls, .install-prompt { display: none !important; }
+}
+
+/* --- 14. Dark Mode Styles --- */
+@media (prefers-color-scheme: dark) {
+  body { background-color: #121212; color: #e0e0e0; }
+  .form-section, .data-section, .section-content { background-color: #1e1e1e; border-color: #333; }
+  input[type="text"], input[type="password"], input[type="date"], input[type="time"], input[type="number"], select, textarea {
+    background-color: #2d2d2d; border-color: #444; color: #e0e0e0;
+  }
+  table { background-color: #1e1e1e; color: #e0e0e0; }
+  th { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 1px solid #34495e; background-color: #2d2d2d; color: #ecf0f1; }
+  tr:nth-child(even) { background-color: #2d2d2d; }
+  tr:nth-child(odd) { background-color: #252525; }
+  td { border: 1px solid #34495e; color: #ecf0f1; }
+  tr:hover { background-color: #34495e; }
+  tr:hover td { color: #fff; }
+  
+  .modal-content-container, .popup-content, .format-modal-content { background-color: #1e1e1e; color: #e0e0e0; }
+  .summaryResult { background-color: #1e1e1e; color: #e0e0e0; }
+  .summaryResult table { background-color: #1e1e1e; }
+  .summaryResult th { 
+    /* เดิม: background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); */
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); /* เปลี่ยนสีตารางเป็นสีน้ำเงินเข้มใน Dark Mode */
+    color: white; 
+    border: 1px solid #005f78;
+  }
+  .summaryResult tr:nth-child(even) { background-color: #2d2d2d; }
+  .summaryResult tr:hover { background-color: #e67e22; }
+  .summaryResult tr:hover td { color: #fff; }
+
+  .install-prompt { background-color: #1a237e; border-color: #283593; color: #e0e0e0; }
+  .install-prompt h4 { color: #bbdefb; }
+
+  /* Header Gradients (Dark Mode) */
+  .header-add-data { 
+    /* เดิม: background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-left: 6px solid #e74c3c; */
+    background: linear-gradient(135deg, #747dff 0%, #94a3ff 100%); /* ม่วงอ่อน/น้ำเงิน */
+    border-left: 6px solid #546de5;
+  }
+  .header-actions { 
+    /* เดิม: background: linear-gradient(135deg, #27ae60 0%, #219653 100%); border-left: 6px solid #27ae60; */
+    background: linear-gradient(135deg, #48dbfb 0%, #1dd1a1 100%); /* น้ำเงินอมเขียว/เขียวมิ้นต์ */
+    border-left: 6px solid #00a8ff;
+  }
+  .header-summary { 
+    /* เดิม: background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); border-left: 6px solid #e67e22; */
+    background: linear-gradient(135deg, #70a1ff 0%, #81c7ff 100%); /* ฟ้าอ่อน/ขาว */
+    border-left: 6px solid #4a90e2;
+  }
+  .summary-subsection-header { background: linear-gradient(135deg, #8e44ad 0%, #732d91 100%); }
+  .summary-subsection-header.summary-date { background: linear-gradient(135deg, #16a085 0%, #138a72 100%); }
+  .summary-subsection-header.summary-range { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: #ecf0f1; }
+  .summary-subsection-header.summary-controls { background: linear-gradient(135deg, #e84393 0%, #d63031 100%); }
+  
+  footer { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); }
+  footer::before { background: linear-gradient(90deg, #e74c3c, #1abc9c, #3498db, #2ecc71, #f1c40f); }
+}
+
+/* --- 15. Summary Popup Compact Styles (ADDED) --- */
+/* ปรับลดช่องว่างใน Popup สรุปผล */
+.summaryResult h3 {
+  margin: 1px 0 !important;       /* ลดระยะห่างหัวข้อหลัก */
+  line-height: 1.2 !important;
+}
+
+.summaryResult h4 {
+  margin: 2px 0 !important;       /* ลดระยะห่างหัวข้อย่อย */
+  padding-bottom: 2px !important;
+}
+
+.summaryResult p {
+  margin: 0 !important;           /* ลบระยะห่างระหว่างบรรทัดข้อความ */
+  line-height: 1.3 !important;    /* ปรับความสูงบรรทัดให้อ่านง่ายแต่ไม่ห่างเกินไป */
+}
+
+.summaryResult table {
+  margin: 3px 0 !important;       /* ลดระยะห่างรอบตาราง */
+}
+
+/* ปรับกล่องสีเหลือง (สรุปจำนวนวัน) และกล่องหัวข้อ */
+.summaryResult > div {
+  margin: 1px 0 !important;
+  padding: 2px !important;
+}
+/* ==========================================================================
+   FIX: แก้ไขปุ่มล้นใน Time Picker (Android Chrome)
+   ========================================================================== */
+input[type="date"],
+input[type="time"] {
+    /* 1. บังคับใช้ฟอนต์ระบบ (System Font) แทน Sarabun 
+       เพื่อให้ Popup ของ Android คำนวณความกว้างปุ่มได้ถูกต้อง ไม่ล้นจอ */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+
+    /* 2. กำหนดขนาดมาตรฐาน 16px 
+       - บนมือถือ: ป้องกันการ Zoom อัตโนมัติและแก้ปุ่มล้น
+       - บนคอม: อ่านง่าย */
+    font-size: 16px !important;
+
+    /* 3. รีเซ็ตความสูงบรรทัดและ Padding */
+    line-height: normal !important;
+    padding: 8px 5px !important;
+    
+    /* 4. ปรับการแสดงผลให้ดูดีขึ้น */
+    background-color: #fff !important;
+    letter-spacing: normal !important;
+}
+
+/* === ปรับแต่งเพิ่มเติมเฉพาะหน้าจอมือถือ === */
+@media screen and (max-width: 768px) {
+    input[type="date"],
+    input[type="time"] {
+        /* บีบตัวอักษรเล็กน้อยเพื่อให้ตัวเลขเวลา (เช่น 12:00) ไม่กินที่ */
+        letter-spacing: -0.3px !important;
+        
+        /* กำหนดความสูงให้กดง่ายแต่นิ้วไม่พลาด */
+        height: 40px !important; 
+        min-height: 40px !important;
+    }
+
+    /* แก้ไขเฉพาะกลุ่ม input ในฟอร์มกิจกรรมเพื่อไม่ให้เบียดกันเกินไป */
+    #activity-form input[type="time"] {
+         width: 100% !important;
+         max-width: none !important; /* ปล่อยให้ขยายเต็มกล่องที่จัดไว้ */
+    }
+}
