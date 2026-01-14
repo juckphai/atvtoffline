@@ -1,6 +1,6 @@
 {
-  "name": "co-manpai-atvt",
-  "short_name": "co-manpai-atvt",
+  "name": "offlineกิจกรรม",
+  "short_name": "่ีjuckกิจกรรม",
   "description": "แอปพลิเคชันสำหรับบันทึกกิจกรรมในชีวิตประจำวัน",
   "start_url": "./",
   "scope": "./",
@@ -20,4 +20,5 @@
       "type": "image/png"
     }
   ]
+
 }
