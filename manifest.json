@@ -1,6 +1,6 @@
 {
   "name": "offlineกิจกรรม",
-  "short_name": "่ีjuckกิจกรรม",
+  "short_name": "่ีofflineกิจกรรม",
   "description": "แอปพลิเคชันสำหรับบันทึกกิจกรรมในชีวิตประจำวัน",
   "start_url": "./",
   "scope": "./",
@@ -22,3 +22,4 @@
   ]
 
 }
+
