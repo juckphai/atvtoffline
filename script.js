@@ -3632,7 +3632,26 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('summary-date').value = thaiToday;
     document.getElementById('summary-start-date').value = thaiToday;
     document.getElementById('summary-end-date').value = thaiToday;
-    
+    // =============================================
+    // ✅ เพิ่มส่วนนี้: Listener สำหรับปุ่มเฟือง (Toggle)
+    // =============================================
+    const togglePersonBtn = document.getElementById('togglePersonControls');
+    if (togglePersonBtn) {
+        togglePersonBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleManagementActions('personActions', 'activityTypeActions');
+        });
+    }
+
+    const toggleActivityTypeBtn = document.getElementById('toggleActivityTypeControls');
+    if (toggleActivityTypeBtn) {
+        toggleActivityTypeBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleManagementActions('activityTypeActions', 'personActions');
+        });
+    }
     // =============================================
     // EVENT LISTENERS หลัก
     // =============================================
