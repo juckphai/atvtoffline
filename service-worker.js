@@ -1,7 +1,7 @@
 // service-worker.js
 // Offline Version: ตัด Firebase ออก และ Cache ไฟล์ Adapter ใหม่
-const staticCacheName = 'account-app-static-v117'; // update version
-const dynamicCacheName = 'account-app-dynamic-v117';
+const staticCacheName = 'account-app-static-v119'; // update version
+const dynamicCacheName = 'account-app-dynamic-v119';
 
 // ไฟล์ที่ต้อง cache ตั้งแต่ตอน install
 const assets = [
